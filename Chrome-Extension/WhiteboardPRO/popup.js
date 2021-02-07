@@ -1,5 +1,4 @@
-// Initialize button with users's prefered color
-//let changeColor = document.getElementById("changeColor");
+
 let headline = document.getElementById("headline");
 let output = document.getElementById("output");
 let calculate = document.getElementById("calculate");
@@ -12,7 +11,6 @@ chrome.storage.sync.get("color", ({ color }) => {
   calculate.style.backgroundColor = color;
 });
 
-// When the button is clicked, inject setPageBackgroundColor into current page
 calculate.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -21,20 +19,32 @@ calculate.addEventListener("click", async () => {
     function: getPoints,
   },
   (injectionResults) => {
-    var result;
-    for (const frameResult of injectionResults)
-      result = frameResult.result
-    let total = Math.ceil(result.total + (result.total/result.graded_assignments)*(Number(result.listed_assignments-result.graded_assignments)+Number(additional_ass.value)))
-    let got   = Number(result.got)
-    let needed= Math.ceil(total*Number(needed_percent.value)/100)
-    output.innerHTML= needed > got ? `you need to get ${needed-got} more points to pass this course` : `aw snap you did more than needed. \n To be exact ${got-needed} points`
+    var result = -1;
+    for (const frameResult of injectionResults){
+      if (frameResult.result != -1) result = frameResult.result;
+    }
+    if (result == -1){
+      output.innerHTML = "pls open your gradebook";
+    }else{
+
+      function totalPoints() {
+        if (additional_pts.value != null && additional_pts.value != "") {
+          additional_ass.value="";
+          return result.total+Number(additional_pts.value);
+        }
+        return Math.ceil(result.total + (result.total/result.graded_assignments)*(Number(result.listed_assignments-result.graded_assignments)+Number(additional_ass.value)))
+      }
+
+      let total = totalPoints();
+      let got   = Number(result.got)
+      let needed= Math.ceil(total*Number(needed_percent.value)/100)
+      output.innerHTML= needed > got ? `you need to get ${needed-got} more points to pass this course` : `aw snap you did more than needed. \n To be exact ${got-needed} points`  
+    }
   });
 });
 
-// The body of this function will be execuetd as a content script inside the
-// current page
+//this runs on the kvv-document and returns the points
 function getPoints() {
-
   function sniffPoints(){
     var listed_assignments = 0;
     var graded_assignments = 0;
@@ -55,7 +65,7 @@ function getPoints() {
   }
 
   let grade = document.querySelector("#gbForm\\:_idJsp29\\:_idJsp56");
-    if(!grade)return "pls open your gradebook";
-    grade.innerHTML="friggn Grade yo";
+    if(!grade)return -1;
+    //grade.innerHTML="friggn Grade yo";
     return sniffPoints();
 }
