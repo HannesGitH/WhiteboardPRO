@@ -1,2 +1,2 @@
 # WhiteboardPRO
-a Chrome-extension to add features to the whiteboard aka kvv
+a Chrome-extension to add features to the FU-Berlin whiteboard aka kvv
