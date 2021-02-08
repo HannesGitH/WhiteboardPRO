@@ -1,11 +1,8 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Node.js CI
+name: Releaser
 
 on:
   push:
-    branches: [ release ]
+    branches: [ release3 ]
     tags: 
       - 'v*'
 
@@ -16,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -25,22 +22,27 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm install crx3
+    - run: npm install -g crx3
     - name: build crx3
       run: | 
-        echo ${{secrets.PEM}} >> Chrome-Extension/WhiteboardPRO.pem
-        crx3 Chrome-Extension/WhiteboardPRO/ --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem 
+        touch Chrome-Extension/WhiteboardPRO.pem
+        echo "${{secrets.PEM}}" > Chrome-Extension/WhiteboardPRO.pem
+        crx3 --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem Chrome-Extension/WhiteboardPRO
+
+        
     - name: Commit files
       run: |
+        echo "." >> body.md
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git commit -m "changed xml and crx" -a
+        git pull
+        git add .
+        git commit -am "changed xml and crx by [bot]" 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+        branch: ${{ github.ref }}
     - name: Upload CRX
       uses: actions/upload-artifact@v2-preview   
       with:
