@@ -26,11 +26,8 @@ jobs:
     - run: npm install -g crx3
     - name: build crx3
       run: | 
-        ls
         touch Chrome-Extension/WhiteboardPRO.pem
-        ls Chrome-Extension
         echo "${{secrets.PEM}}" > Chrome-Extension/WhiteboardPRO.pem
-        echo $PWD
         crx3 --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem Chrome-Extension/WhiteboardPRO
 
         
