@@ -28,7 +28,9 @@ jobs:
     - run: npm ci
     - run: npm install crx3
     - name: build crx3
-      run: crx3 Chrome-Extension/WhiteboardPRO/ --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ 
+      run: | 
+        echo ${{secrets.PEM}} >> Chrome-Extension/WhiteboardPRO.pem
+        crx3 Chrome-Extension/WhiteboardPRO/ --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem 
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
