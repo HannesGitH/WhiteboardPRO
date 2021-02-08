@@ -10,7 +10,7 @@ let additional_pts = document.getElementById("additional_pts");
 chrome.storage.sync.get("color", ({ color }) => {
   calculate.style.backgroundColor = color;
 });
-
+//
 calculate.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
