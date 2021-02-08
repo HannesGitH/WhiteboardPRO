@@ -28,7 +28,17 @@ jobs:
     - run: npm ci
     - run: npm install crx3
     - name: build crx3
-      run: crx3 Chrome-Extension/WhiteboardPRO/ -
+      run: crx3 Chrome-Extension/WhiteboardPRO/ --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ 
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "changed xml and crx" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
     - name: Upload CRX
       uses: actions/upload-artifact@v2-preview   
       with:
@@ -36,9 +46,10 @@ jobs:
         path: Chrome-Extension/WhiteboardPRO.crx
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      uses: ncipollo/release-action@v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        artifacts: "Chrome-Extension/WhiteboardPRO.crx"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
+        name: Release ${{ github.ref }}
