@@ -1,6 +1,7 @@
 {
   "name": "Whiteboard PRO",
   "description": "Addidtional unofficial features for the KVV Whiteboard FU-Berlin",
+  "update_url": "https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO/updates.xml",
   "version": "0.0.1",
   "manifest_version": 3,
   "background": {
