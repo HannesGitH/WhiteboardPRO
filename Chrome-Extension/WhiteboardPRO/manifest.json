@@ -27,8 +27,7 @@
   "content_scripts": [
     {
       "matches": ["https://mycampus.imp.fu-berlin.de/portal/*"], 
-      "js": ["injected.js"],
-      "css" : ["injected.css"]
+      "js": ["injected.js"]
     }
   ]
 }

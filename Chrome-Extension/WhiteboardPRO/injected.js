@@ -63,3 +63,49 @@ window.addEventListener('load', function () {
     if(!grade)return -1;
     return runInjection();
 })
+
+chrome.storage.sync.get("forceDM", (data) => {
+    let forceDM = data.forceDM;
+    if (forceDM) addStyle(`
+        @media (prefers-color-scheme: dark) {
+            body{
+                filter: 
+                    invert(1)
+                    hue-rotate(180deg);
+            }
+            #content{
+                margin: 0;
+                padding: 1.5em 0 0 0;
+            }
+        }
+        
+        #sniffer_calculate {
+            outline: none;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            color:black;
+            padding: 10px;
+            background-color: #bbb;
+        }
+        #sniffer_calculate:hover {
+            background-color: #aaa;
+        }
+        
+        #sniffer_calculate.current {
+            box-shadow: 0 0 0 12px white,
+                    0 0 0 4px black;
+        }
+    `)
+});
+
+
+/**
+ * Utility function to add CSS in multiple passes.
+ * @param {string} styleString
+ */
+function addStyle(styleString) {
+    const style = document.createElement('style');
+    style.textContent = styleString;
+    document.head.append(style);
+  }
