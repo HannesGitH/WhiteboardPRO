@@ -23,5 +23,11 @@
     "48": "/images/icon_48.png",
     "128": "/images/icon_128.png"
   },
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://mycampus.imp.fu-berlin.de/portal/*"], 
+      "js": ["injected.js"]
+    }
+  ]
 }

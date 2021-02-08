@@ -3,15 +3,46 @@ button {
   margin: 10px;
   border: none;
   border-radius: 15px;
-  color:white;
+  color:black;
   padding: 10px;
 }
 
 button.current {
-  box-shadow: 0 0 0 2px white,
+  box-shadow: 0 0 0 12px white,
               0 0 0 4px black;
 }
 
+input{
+  background-color: #eee;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  text-align: center; 
+}
+input:focus {
+  border: 1px solid gray;
+  outline:none;
+}
+
 body{
+  margin: 0 auto;
+  text-align: center;
   padding: 10px;
+  border-radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  button {
+    color:black;
+  }
+
+  input{
+    background-color: #4C4C4D;
+    color: white;
+  }
+
+  body{
+    background-color: #313131;
+    color: white;
+  }
 }
