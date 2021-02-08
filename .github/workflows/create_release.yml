@@ -1,0 +1,63 @@
+
+name: Releaser
+
+on:
+  push:
+    branches: [ release3 ]
+    tags: 
+      - 'v*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install -g crx3
+    - name: build crx3
+      run: | 
+        ls
+        touch Chrome-Extension/WhiteboardPRO.pem
+        ls Chrome-Extension
+        echo "${{secrets.PEM}}" > Chrome-Extension/WhiteboardPRO.pem
+        echo $PWD
+        crx3 --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem Chrome-Extension/WhiteboardPRO
+
+        
+    - name: Commit files
+      run: |
+        echo "." >> body.md
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git pull
+        git add .
+        git commit -am "changed xml and crx by [bot]" 
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+    - name: Upload CRX
+      uses: actions/upload-artifact@v2-preview   
+      with:
+        name: WhiteboardPRO.crx
+        path: Chrome-Extension/WhiteboardPRO.crx
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "Chrome-Extension/WhiteboardPRO.crx"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
+        name: Release ${{ github.ref }}
