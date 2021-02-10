@@ -78,24 +78,6 @@ chrome.storage.sync.get("forceDM", (data) => {
                 padding: 1.5em 0 0 0;
             }
         }
-        
-        #sniffer_calculate {
-            outline: none;
-            margin: 10px;
-            border: none;
-            border-radius: 15px;
-            color:black;
-            padding: 10px;
-            background-color: #bbb;
-        }
-        #sniffer_calculate:hover {
-            background-color: #aaa;
-        }
-        
-        #sniffer_calculate.current {
-            box-shadow: 0 0 0 12px white,
-                    0 0 0 4px black;
-        }
     `)
 });
 

@@ -3,9 +3,9 @@
   "description": "Addidtional unofficial features for the KVV Whiteboard FU-Berlin",
   "update_url": "https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO/updates.xml",
   "version": "0.0.1",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
@@ -27,7 +27,8 @@
   "content_scripts": [
     {
       "matches": ["https://mycampus.imp.fu-berlin.de/portal/*"], 
-      "js": ["injected.js"]
+      "js": ["injected.js"],
+      "css": ["injected.css"]
     }
   ]
 }
