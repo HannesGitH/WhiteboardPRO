@@ -49,8 +49,8 @@ jobs:
         name: WhiteboardPRO.crx
         path: Chrome-Extension/WhiteboardPRO.crx
     - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Create Release
       id: create_release
       uses: ncipollo/release-action@v1
