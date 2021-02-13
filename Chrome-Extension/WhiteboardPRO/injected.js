@@ -1,4 +1,4 @@
-//
+
 function sniffPoints(){
     var listed_assignments = 0;
     var graded_assignments = 0;
