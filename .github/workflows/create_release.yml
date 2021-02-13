@@ -59,4 +59,4 @@ jobs:
         bodyFile: "body.md"
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Release ${{ github.ref }}
-        tag: Release from ${{ steps.date.outputs.date }}
+        tag: v_${{ steps.date.outputs.date }}
