@@ -27,7 +27,7 @@ jobs:
       run: | 
         touch Chrome-Extension/WhiteboardPRO.pem
         echo "${{secrets.PEM}}" > Chrome-Extension/WhiteboardPRO.pem
-        crx3 --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -x Chrome-Extension/ -p Chrome-Extension/WhiteboardPRO.pem Chrome-Extension/WhiteboardPRO
+        crx3 --crxURL https://github.com/HannesGitH/WhiteboardPRO/Chrome-Extension/WhiteboardPRO.crx -p Chrome-Extension/WhiteboardPRO.pem Chrome-Extension/WhiteboardPRO
 
         
     - name: Commit files
