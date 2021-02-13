@@ -38,8 +38,6 @@ jobs:
         git pull
         git add .
         git commit -am "changed xml and crx by [bot]" 
-        git tag -d refs/heads/release3
-        git push origin :refs/tags/refs/heads/release3
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
@@ -57,5 +55,4 @@ jobs:
         artifacts: "Chrome-Extension/WhiteboardPRO.crx"
         bodyFile: "body.md"
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.ref }}
         name: Release ${{ github.ref }}
