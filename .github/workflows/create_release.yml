@@ -58,5 +58,5 @@ jobs:
         artifacts: "Chrome-Extension/WhiteboardPRO.crx"
         bodyFile: "body.md"
         token: ${{ secrets.GITHUB_TOKEN }}
-        name: Release ${{ github.ref }}
+        name: Release from ${{ steps.date.outputs.date }}
         tag: v_${{ steps.date.outputs.date }}
