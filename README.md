@@ -10,4 +10,4 @@ currently the main feature is to calculate how much points you still need to get
 3. activate developer mode (top right)
 4. load unpacked extension
     - choose >Chrome-Extension>WhiteboardPRO 
-5. tada
+5. tada (open kvv gradebook classic)
