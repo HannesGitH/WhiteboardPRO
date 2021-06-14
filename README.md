@@ -1,6 +1,7 @@
 # WhiteboardPRO
 a Chrome-extension to add features to the FU-Berlin whiteboard aka kvv
 
+currently the main feature is to calculate how much points you still need to get to pass a course :D
 
 # installation
 
